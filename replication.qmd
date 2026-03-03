@@ -12,16 +12,14 @@ library(tidyverse)
 library(estimatr)
 library(sf) 
 library(MASS)
-library(texreg)
 library(broom)
 library(xtable)
+library(here)
 select <- dplyr::select
 ```
 
 ```{r}
 # recoding functions
-
-
 dv.recode <- function(x){
   out <- case_when(x=='Not at all' ~ 0,
                    x=='Only a little' ~ 1,
@@ -60,63 +58,66 @@ policy.naming <- function(x){
 ```
 
 ```{r}
-# read in data
+# SLR survey results
+ca_survey <- read_csv(here('data', 'SeaLevelRiseSurvey_California_January+16,+2021_13.54.csv')) |> 
+    mutate(geo = 'CA') |> 
+    slice(-c(1,2))
 
-# survey results
-data1 <- read_csv('./Data/SeaLevelRiseSurvey_California_January+16,+2021_13.54.csv') %>%
-  mutate(geo = "CA") %>%
-  .[-c(1,2),]
-data2 <- read_csv('./Data/SeaLevelRiseSurvey_Florida_January+16,+2021_13.51.csv') %>%
-  mutate(geo = "FL") %>%
-  .[-c(1,2),]
-data3 <- read_csv('./Data/SeaLevelRiseSurvey_NewJersey_January+16,+2021_13.50.csv') %>%
-  mutate(geo = "NJ") %>%
-  .[-c(1,2),]
-data4 <- read_csv('./Data/SeaLevelRiseSurvey_Virginia_January+16,+2021_13.50.csv') %>%
-  mutate(geo = "VA") %>%
-  .[-c(1,2),]
+fl_survey <- read_csv(here('data', 'SeaLevelRiseSurvey_Florida_January+16,+2021_13.51.csv')) |> 
+  mutate(geo = "FL") |> 
+  slice(-c(1,2))
+
+nj_survey <- read_csv(here('data', 'SeaLevelRiseSurvey_NewJersey_January+16,+2021_13.50.csv')) |> 
+  mutate(geo = "NJ") |> 
+  slice(-c(1,2))
+
+va_survey <- read_csv(here('data', 'SeaLevelRiseSurvey_Virginia_January+16,+2021_13.50.csv')) |> 
+  mutate(geo = "VA") |> 
+  slice(-c(1,2))
 
 # districts and their minimums
-dist1 <- read_csv('./Data/ca_dist_mins.csv')
-dist2 <- read_csv('./Data/fl_dist_mins.csv')
-dist3 <- read_csv('./Data/nj_dist_mins.csv')
-dist4 <- read_csv('./Data/va_dist_mins.csv')
+ca_dist <- read_csv(here('data', 'ca_dist_mins.csv'))
+fl_dist <- read_csv(here('data', 'fl_dist_mins.csv'))
+nj_dist <- read_csv(here('data', 'nj_dist_mins.csv'))
+va_dist <- read_csv(here('data', 'va_dist_mins.csv'))
 
 # census tracts and asssociated info
-cw1 <- read_csv('./Data/ca_combined_final_withtraffic_sub.csv')
-cw2 <- read_csv('./Data/fl_combined_final.csv')
-cw3 <- read_csv('./Data/nj_combined_final.csv')
-cw4 <- read_csv('./Data/va_combined_final.csv')
+ca_census <- read_csv(here('data', 'ca_combined_final_withtraffic_sub.csv'))
+fl_census <- read_csv(here('data', 'fl_combined_final.csv'))
+nj_census <- read_csv(here('data', 'nj_combined_final.csv'))
+va_census <- read_csv(here('data', 'va_combined_final.csv'))
 
 # flood zones
-fld_zone <- read.csv('./Data/fld_zone.csv')
+fld_zone <- read_csv(here('data', 'fld_zone.csv'))
 ```
 
 
 ```{r}
-# data cleaning
-dist <- dist1 %>%
-  bind_rows(dist2) %>%
-  bind_rows(dist3) %>%
-  bind_rows(dist4) %>%
+# Combine dist data
+dist <- ca_dist %>%
+  bind_rows(fl_dist) %>%
+  bind_rows(nj_dist) %>%
+  bind_rows(va_dist) %>%
   filter(!duplicated(.)) %>% 
   group_by(adds) %>%
   filter(dist_min == min(dist_min)) %>% 
-  inner_join(cw1 %>%
-               bind_rows(cw2) %>%
-               bind_rows(cw3) %>%
-               bind_rows(cw4) %>%
+  inner_join(ca_census %>%
+               bind_rows(fl_census) %>%
+               bind_rows(nj_census) %>%
+               bind_rows(va_census) %>%
                select(adds, email, FID) %>%
                filter(!duplicated(.))) %>%
   rename(RecipientEmail=email) %>%
   inner_join(fld_zone %>% 
                select(adds, COUNTYFP, TRACTCE, FLD_ZONE) %>%
                filter(!duplicated(.))) 
+```
 
-data <- data1 %>%
-  bind_rows(data2) %>%
-  bind_rows(data3) %>%
-  bind_rows(data4) %>%
+```{r}
+data <- ca_survey %>%
+  bind_rows(fl_survey) %>%
+  bind_rows(nj_survey) %>%
+  bind_rows(va_survey) %>%
   left_join(dist) %>%
   mutate(treat_map = !is.na(exp_emphasis),
          slr = str_detect(img, "SLR"),
@@ -269,5 +270,39 @@ ggplot(reg_results) +
   theme_classic() +
   theme(legend.position='bottom', legend.title=element_blank(), 
         text=element_text(size=20)) 
+```
+
+# Regression Discontinuity Design (RDD)
+
+```{r}
+data %>%
+  mutate(dv_other = (dv_community + dv_us + dv_developing + dv_future)/4) %>%
+  select(starts_with('treat_'), dv_personal, dv_other, geo, slr, dist_min) %>%
+  pivot_longer(cols=starts_with('dv_')) %>%
+  mutate(name = case_when(name=='dv_personal' ~ 'Outcome: Sense of Personal Harm'),
+         treat_map = ifelse(treat_map==TRUE, 'Map Treatment', "Control"),
+         bucket = round(dist_min/50,0)*50) %>%
+  group_by(bucket, name) %>%
+  filter(n()>=15 & !is.na(name)) %>%
+  do(tidy(lm_robust(value ~ treat_map,
+                    fixed_effects = ~geo,
+                    se_type = 'HC1',
+                    data=.))) %>%
+  mutate(below_zero = ifelse(bucket<=0, 'a', 'b'),
+         sig = ifelse(p.value <= 0.05, 'sig', 'ns')) %>%
+  ggplot() + 
+  geom_pointrange(aes(x=bucket, y=estimate, ymin = (estimate - 1.96*std.error), ymax=(estimate + 1.96*std.error),
+                      col = sig)) + 
+  geom_smooth(aes(x=bucket, y = estimate, group=below_zero), col='red') + 
+  geom_vline(xintercept=0, lty=2) + 
+  geom_hline(yintercept=0, lty=2) + 
+  labs(x='Distance from Sea Level Rise Boundary\n(Negative Values are Inside SLR Zone)',
+       y='Treatment Effect of Map') + 
+  scale_color_manual(values = c('grey', 'black')) + 
+  facet_wrap(~name) + 
+  theme_classic() +
+  xlim(-500,500) + 
+  theme(legend.position='none', legend.title=element_blank(), 
+        text=element_text(size=20))
 ```
 
