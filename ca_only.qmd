@@ -6,8 +6,9 @@ author:
 - name: "William Mullins"
 - name: "Sofia Sarak"
 date: "March 6, 2026"
-format: html:
-  theme: flatly
+format: 
+  html:
+    theme: flatly
 editor: visual
 ---
 
@@ -104,19 +105,19 @@ library(estimatr)
 #| message: false
 #| warning: false
 
-# Load CA survey data
-data_ca <- read_csv("https://dataverse.harvard.edu/api/access/datafile/10933509") %>%
-  .[-c(1,2),] %>%
+# CA survey data
+data_ca <- read.delim("https://dataverse.harvard.edu/api/access/datafile/10933509", header = TRUE) %>%
+  [-c(1,2),] %>%  
   mutate(geo = "CA")
 
 # CA distance-to-boundary file
-dist_ca <- read_csv("https://dataverse.harvard.edu/api/access/datafile/10933516")
+dist_ca <- read.delim("https://dataverse.harvard.edu/api/access/datafile/10933516", header = TRUE)
 
-# Load CA combined metadata
+# CA combined metadata
 cw_ca <- read_csv("https://dataverse.harvard.edu/api/access/datafile/10933510")
 
-# Load flood zone file
-fld_zone <- read.csv("https://dataverse.harvard.edu/api/access/datafile/10933526")
+# Lood zone file
+fld_zone <- read.delim("https://dataverse.harvard.edu/api/access/datafile/10933526", header = TRUE)
 
 ```
 
