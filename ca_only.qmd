@@ -288,6 +288,15 @@ Three key insights emerge from the California analysis:
 
 3. **California behaves like the national sample.** Despite higher climate awareness, the backfire effect persists. This insight is based on evidence from the original study, as well.
 
+**External validity:** Due to the relatively small sample size and the geographic limit of only one coastal community, it can be concluded that these results can only be generalized to the residents of the San Francisco Bay Area, California.
+
+## Study Limitations
+
+**Spillover effect:** It would not have been possible for the researchers to control whether or not residents discussed the surveys and their responses with each other. This could lead to observations that are not truly independent.
+
+**Time lag:** Differences in response time (or even allowing for a long response time) could potential skew outcomes. For example, if there was a weather event that led to minor flooding in the time period that the survey was open, respondents who completed the survey before and after the event could be basing their beliefs off of different realities (and not off of the treatment). These discrepancies were not controlled for in the study methods.
+
+
 # Conclusion
 
 This study utilizes a randomized experiment to produce causal inference results. Additionally, spatial heterogeneity allows for mechanism exploration. However, due to the survey methodology, non-response bias persists.
