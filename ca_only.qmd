@@ -5,23 +5,26 @@ author:
 - name: "Zach Loo"
 - name: "William Mullins"
 - name: "Sofia Sarak"
+date: "March 6, 2026"
 format: html
 editor: visual
 ---
 
 ## Background
 
-Sea‑level rise (SLR) is one of California’s most pressing climate risks. Yet even in a climate‑aware state, public concern about SLR remains surprisingly low. Mildenberger et al. (2024) test whether personalized SLR maps increase resident concern by showing how rising seas could affect their home.
+Sea‑level rise (SLR) is one of California’s most pressing climate risks. Yet even in a climate‑aware state, public concern about SLR remains surprisingly low. [Mildenberger et al. (2024)](https://www.nature.com/articles/s41893-024-01380-0) test whether personalized SLR maps increase resident concern by showing how rising seas could affect their home.
 
-The surprising finding: Maps often reduce perceived personal harm, even for people whose homes are projected to flood.
+The surprising finding: maps often reduce perceived personal harm, even for people whose homes are projected to flood.
 
-This blog post walks through the design‑based causal method used in the study and recreates the California‑only version of Figure 4, which shows how the map’s treatment effect varies with distance from the SLR boundary. The original study conducted this analysis on coastal communities of New Jersey, Florida, and Virginia, as well. Calfiornia data comes from the San Francisco Bay Area.
+This blog post walks through the design‑based causal method used in the study and recreates the California‑only version of Figure 4, which shows how the map’s treatment effect varies with distance from the SLR boundary. The original study conducted this analysis on coastal communities of New Jersey, Florida, and Virginia, as well. California data comes from the San Francisco Bay Area.
 
 ```{r}
 #| eval: true
 #| echo: false
 #| fig-align: "center"
-#| out-width: "50%"
+#| out-width: "70%"
+#| fig-cap: |
+#|   **Figure 4 (from Mildenberger et al., 2024)**: Effect of map treatment on personal concern, with separate regressions estimated at 50 m intervals, pooled across California, New Jersey, Virginia and Florida samples.
 
 knitr::include_graphics("images/figure4.png")
 ```
@@ -40,6 +43,12 @@ Because treatment is randomized, the difference in outcomes between treated and 
 
 Additionally, the study utilized a geographic risk discontuity design to test whether there was a difference in concern between respondents that were just within or just outside of the flood zone. Under these assumptions, these residents should be relatively similar in most covariates other than the risk to sea level rise. A jump in concern between groups on either side of the threshold would indicate a treatment effect.
 
+### Survey Methods
+
+Individualized letters were sent to households within the sample area (San Francisco Bay, CA) in Fall 2020; the timing of survey completion depended on when respondents chose to complete it. The average response rates inside and outside the projected SLR boundary (as a fraction of mailed invitations) -- of all 4 states in the original study -- was 2.6% and 3.1% respectively. Treatment, or whether the letter/survey was accompanied by a map of SLR, was randomized using the Qualtric web platform.
+
+Although the randomization assumption was met in this case, the low rate of response has the potential to contribute non-response/participation bias in the outcome.
+
 ## Outcome variable
 
 `dv_personal` — The study measures perceived risk or personal harm from SLR using a 0-3 scale, which respondents selected in their surveys.
@@ -48,7 +57,7 @@ Additionally, the study utilized a geographic risk discontuity design to test wh
 
 To recreate Figure 4, we use:
 
-`dist_min` — distance (meters) from the SLR boundary, where negative values correspond to homes inside the projected flood zone and positive ones outside of it.
+`dist_min` — distance (in meters) from the SLR boundary, where negative values correspond to homes inside the projected flood zone and positive ones outside of it.
 
 This running variable is used to estimate spatial heterogeneity in the treatment effect.
 
@@ -196,7 +205,7 @@ data_ca_clean <- data_ca %>%
 
 -   `dv_personal`: Survey result, recoded as 0-3 to represent responses "Not at all", "Only a little", "A moderate amount", and "A great deal", respectively, when residents were asked about SLR concern. This is our **outcome variable**.
 -   `treat_map`: Whether treatment was applied (SLR map included in survey). This is our **treatment variable**.
--   `dist_min`: Minimum distance to SLR boundary. This is our **running variable**.
+-   `dist_min`: Minimum distance (in meters) to SLR boundary. This is the **running variable** for our spatial heterogeneity test. 
 
 This data contains 680 observations from California residents. The entire dataset (not used here) containing data from all four states has a sample size of 1,243
 
@@ -265,23 +274,14 @@ ggplot(effects_ca, aes(x = dist_bin, y = estimate)) +
 
 Three key insights emerge from the California analysis:
 
-Maps reduce perceived personal harm across almost all distances.\
-Even respondents whose homes are projected to flood show lower concern after seeing the map.
+1. **Maps reduce perceived personal harm across almost all distances.** Even respondents whose homes are projected to flood show lower concern after seeing the map.
 
-There is no sharp change at the SLR boundary.\
-If maps increased personal relevance, we would expect a spike near 0 meters. Instead, the curve is flat and negative.
+2. **There is no sharp change at the SLR boundary.** If maps increased personal relevance, we would expect a spike near 0 meters. Instead, the curve is flat and negative.
 
-California behaves like the national sample.\
-Despite higher climate awareness, the backfire effect persists.
+3. **California behaves like the national sample.** Despite higher climate awareness, the backfire effect persists. This insight is based on evidence from the original study, as well.
 
 # Conclusion
 
-This study is a powerful example of design‑based causal inference:
-
-Randomization leads to unbiased treatment effect
-
-Spatial heterogeneity relates to mechanism exploration
-
-Simple models allow for transparent interpretation
+This study utilizes a randomized experiment to produce causal inference results. Additionally, spatial heterogeneity allows for mechanism exploration. However, due to the survey methodology, non-response bias persists.
 
 For policymakers, the takeaway is clear: SLR maps may unintentionally reduce concern, even among at‑risk households.

@@ -10,6 +10,7 @@
 <meta name="author" content="Zach Loo">
 <meta name="author" content="William Mullins">
 <meta name="author" content="Sofia Sarak">
+<meta name="dcterms.date" content="2026-03-06">
 
 <title>Do Sea‑Level Rise Maps Backfire? A California‑Focused Causal Tutorial</title>
 <style>
@@ -103,6 +104,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 6, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -114,14 +121,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>Sea‑level rise (SLR) is one of California’s most pressing climate risks. Yet even in a climate‑aware state, public concern about SLR remains surprisingly low. Mildenberger et al.&nbsp;(2024) test whether personalized SLR maps increase resident concern by showing how rising seas could affect their home.</p>
-<p>The surprising finding: Maps often reduce perceived personal harm, even for people whose homes are projected to flood.</p>
-<p>This blog post walks through the design‑based causal method used in the study and recreates the California‑only version of Figure 4, which shows how the map’s treatment effect varies with distance from the SLR boundary.</p>
+<p>Sea‑level rise (SLR) is one of California’s most pressing climate risks. Yet even in a climate‑aware state, public concern about SLR remains surprisingly low. <a href="https://www.nature.com/articles/s41893-024-01380-0">Mildenberger et al.&nbsp;(2024)</a> test whether personalized SLR maps increase resident concern by showing how rising seas could affect their home.</p>
+<p>The surprising finding: maps often reduce perceived personal harm, even for people whose homes are projected to flood.</p>
+<p>This blog post walks through the design‑based causal method used in the study and recreates the California‑only version of Figure 4, which shows how the map’s treatment effect varies with distance from the SLR boundary. The original study conducted this analysis on coastal communities of New Jersey, Florida, and Virginia, as well. California data comes from the San Francisco Bay Area.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/figure4.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+<p><img src="images/figure4.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption><strong>Figure 4 (from Mildenberger et al., 2024)</strong>: Effect of map treatment on personal concern, with separate regressions estimated at 50 m intervals, pooled across California, New Jersey, Virginia and Florida samples.</figcaption>
 </figure>
 </div>
 </div>
@@ -136,6 +144,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Control (treat_map = 0): See no map</p>
 <p>Because treatment is randomized, the difference in outcomes between treated and control respondents is meant to be a causal estimate of the map’s effect.</p>
 <p>Additionally, the study utilized a geographic risk discontuity design to test whether there was a difference in concern between respondents that were just within or just outside of the flood zone. Under these assumptions, these residents should be relatively similar in most covariates other than the risk to sea level rise. A jump in concern between groups on either side of the threshold would indicate a treatment effect.</p>
+<section id="survey-methods" class="level3">
+<h3 class="anchored" data-anchor-id="survey-methods">Survey Methods</h3>
+<p>Individualized letters were sent to households within the sample area (San Francisco Bay, CA) in Fall 2020; the timing of survey completion depended on when respondents chose to complete it. The average response rates inside and outside the projected SLR boundary (as a fraction of mailed invitations) – of all 4 states in the original study – was 2.6% and 3.1% respectively. Treatment, or whether the letter/survey was accompanied by a map of SLR, was randomized using the Qualtric web platform.</p>
+<p>Although the randomization assumption was met in this case, the low rate of response has the potential to contribute non-response/participation bias in the outcome.</p>
+</section>
 </section>
 <section id="outcome-variable" class="level2">
 <h2 class="anchored" data-anchor-id="outcome-variable">Outcome variable</h2>
@@ -144,14 +157,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="running-variable" class="level2">
 <h2 class="anchored" data-anchor-id="running-variable">Running variable</h2>
 <p>To recreate Figure 4, we use:</p>
-<p><code>dist_min</code> — distance (meters) from the SLR boundary, where negative values correspond to homes inside the projected flood zone and positive ones outside of it.</p>
+<p><code>dist_min</code> — distance (in meters) from the SLR boundary, where negative values correspond to homes inside the projected flood zone and positive ones outside of it.</p>
 <p>This running variable is used to estimate spatial heterogeneity in the treatment effect.</p>
 </section>
 <section id="causal-identification-strategy" class="level2">
 <h2 class="anchored" data-anchor-id="causal-identification-strategy">Causal Identification Strategy</h2>
 <p>The randomized sample estimates an Average Treatment Effect (ATE). Because map exposure is randomly assigned, the causal effect is simply:</p>
-<div class="center">
-<p>ATE = mean outcome of those that received the SLR map - mean outcome of those that did not receive map</p>
+<div style="font-size: 0.8em; text-align: center;">
+<p><strong>ATE = mean outcome of those that received the SLR map - mean outcome of those that did not receive map</strong></p>
 </div>
 <p>Spatial heterogeneity/geographic risk discontinuity (Figure 4) is leveraged to understand whether the map works differently for people closer to the flood zone. The study does the following:</p>
 <ol type="1">
@@ -161,8 +174,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>To reiterate, this is not a formal regression discontinuity design, but it borrows the intuition that if the map increases personal relevance, the treatment effect should be strongest near the boundary.</p>
 </section>
-<section id="result" class="level2">
-<h2 class="anchored" data-anchor-id="result">Result</h2>
+<section id="study-result" class="level2">
+<h2 class="anchored" data-anchor-id="study-result">Study Result</h2>
 <p>The treatment effect is negative (reduces concern of SLR risk), regardless of geographic location.</p>
 </section>
 </section>
@@ -222,10 +235,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>In the analysis we are replicating in this blog post, traffic data is not used (but it used for another experiment in the same study, which is why it is included here).</p>
 <p><strong>Data Description:</strong> This intermediary clean data frame contains the following columns:</p>
-<p><code>adds</code> - Residential addresses where surveys were sent <code>dist_min</code> - The minimum distance to the SLR boundary <code>RecipientEmail</code> - Email address associated with recipient of survey <code>FID</code> - Feature IDs from the corresponding geospatial data set <code>COUNTYFP</code> - County identifier (there are 10 unique counties included in this study) <code>TRACTCE</code> - Census tract identifier <code>FLD_ZONE</code> - Flood zone area identifier</p>
+<ul>
+<li><p><code>adds</code> - Residential addresses where surveys were sent</p></li>
+<li><p><code>dist_min</code> - The minimum distance to the SLR boundary</p></li>
+<li><p><code>RecipientEmail</code> - Email address associated with recipient of survey</p></li>
+<li><p><code>FID</code> - Feature IDs from the corresponding geospatial data set</p></li>
+<li><p><code>COUNTYFP</code> - County identifier (there are 10 unique counties included in this study)</p></li>
+<li><p><code>TRACTCE</code> - Census tract identifier</p></li>
+<li><p><code>FLD_ZONE</code> - Flood zone area identifier</p></li>
+</ul>
 </section>
 <section id="construct-california-only-analytic-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="construct-california-only-analytic-dataset">Construct California Only Analytic Dataset</h2>
+<h2 class="anchored" data-anchor-id="construct-california-only-analytic-dataset">Construct California-Only Analytic Dataset</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create function that recodes survey responses to numeric values</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dv_recode <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
@@ -263,10 +284,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Data Description:</strong> The final clean data frame contains a total of 123 columns, we will not summarize in entirety here. Those that are necessary for our analysis include:</p>
 <ul>
-<li><code>dv_personal</code>: Survey result, recoded as 0-3 to represent responses “Not at all”, “Only a little”, “A moderate amount”, and “A great deal”, respectively, when residents were asked about SLR concern.</li>
-<li><code>treat_map</code>: Whether treatment was applied (SLR map included in survey).</li>
-<li><code>dist_min</code>: Minimum distance to SLR boundary.</li>
+<li><code>dv_personal</code>: Survey result, recoded as 0-3 to represent responses “Not at all”, “Only a little”, “A moderate amount”, and “A great deal”, respectively, when residents were asked about SLR concern. This is our <strong>outcome variable</strong>.</li>
+<li><code>treat_map</code>: Whether treatment was applied (SLR map included in survey). This is our <strong>treatment variable</strong>.</li>
+<li><code>dist_min</code>: Minimum distance (in meters) to SLR boundary. This is the <strong>running variable</strong> for our spatial heterogeneity test.</li>
 </ul>
+<p>This data contains 680 observations from California residents. The entire dataset (not used here) containing data from all four states has a sample size of 1,243</p>
 </section>
 <section id="step-1---estimate-the-ate-of-california" class="level2">
 <h2 class="anchored" data-anchor-id="step-1---estimate-the-ate-of-california">Step 1 - Estimate the ATE of California</h2>
@@ -291,8 +313,8 @@ F-statistic: 11.51 on 1 and 678 DF,  p-value: 0.0007332</code></pre>
 </div>
 </div>
 </section>
-<section id="step-2-recreate-figure-4" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-recreate-figure-4">Step 2 — Recreate Figure 4</h2>
+<section id="step-2-create-distance-bins" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-create-distance-bins">Step 2 — Create distance bins</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bin_width <span class="ot">&lt;-</span> <span class="dv">50</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
