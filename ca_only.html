@@ -80,8 +80,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="ca_only_files/libs/react-18.2.0/react-dom.min.js"></script>
 <script src="ca_only_files/libs/reactwidget-2.0.0/react-tools.js"></script>
 <script src="ca_only_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="ca_only_files/libs/reactable-0.4.5/reactable.css" rel="stylesheet">
-<script src="ca_only_files/libs/reactable-binding-0.4.5/reactable.js"></script>
+<link href="ca_only_files/libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="ca_only_files/libs/reactable-binding-0.4.4/reactable.js"></script>
 
 
 </head>
@@ -164,18 +164,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Sea‑level rise (SLR) is one of California’s most pressing climate risks. Yet even in a climate‑aware state, public concern about SLR remains surprisingly low. <a href="https://www.nature.com/articles/s41893-024-01380-0">Mildenberger et al.&nbsp;(2024)</a> test whether personalized SLR maps increase resident concern by showing how rising seas could affect their home.</p>
 <p>The surprising finding: maps often reduce perceived personal harm, even for people whose homes are projected to flood.</p>
 <p>This blog post walks through the design‑based causal method of a randomized experiment to recreate the California‑only version of Figure 4, which shows how the map’s treatment effect varies with distance from the SLR boundary. The original study conducted this analysis on coastal communities of New Jersey, Florida, and Virginia, as well. California data comes from the San Francisco Bay Area.</p>
+<div id="fig-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/figure4.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<figcaption><strong>Figure 4 (from Mildenberger et al., 2024)</strong>: Effect of map treatment on personal concern, with separate regressions estimated at 50 m intervals, pooled across California, New Jersey, Virginia and Florida samples.</figcaption>
+<p><img src="images/figure4.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We opted to conduct the replication using only data from only one state in order to explore whether study findings hold even when considering just a subset, as well as limit the scope of our analysis to allow for a more in-depth analysis of the causal method itself.</p>
-<p>The choice of the San Francisco Bay Area was arbitrary other than for the fact that our current Master’s program is located in California.</p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Effect of map treatment on personal concern, with separate regressions estimated at 50 meter intervals, pooled across California, New Jersey, Virginia and Florida samples (Mildenberger et al.&nbsp;2024, Figure 4).
+</figcaption>
+</figure>
+</div>
+<p>We opted to conduct the replication using data from only one state in order to explore whether study findings hold even when considering just a subset, as well as limit our scope to allow for a more in-depth analysis of the causal method itself. Additionally, we chose California because provides the cleanest replication of Figure 4 due to consistent geospatial data availability and a larger sample size within a single region.</p>
 </section>
 <section id="study-design" class="level1">
 <h1>Study Design</h1>
@@ -219,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="study-result" class="level2">
 <h2 class="anchored" data-anchor-id="study-result">Study Result</h2>
-<p>The treatment effect is negative (reduces concern of SLR risk), regardless of geographic location.</p>
+<p>The treatment effect is negative (reduces concern of SLR risk), regardless of geographic location. Across all four states, the authors find that personalized SLR maps reduce perceived personal harm. Respondents shown a map report significantly lower concern than those in the control group, even when their homes are explicitly shown inside the projected flood zone. This counterintuitive “backfire effect” is one of the central findings of the study.</p>
 </section>
 </section>
 <section id="recreation-of-resultsfigure-4" class="level1">
@@ -332,23 +339,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_gt</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">opt_interactive</span>(<span class="at">use_compact_mode =</span> <span class="cn">TRUE</span>) <span class="co"># Reduce long balance table</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="ivcmpzqnzg" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ivcmpzqnzg table {
+<div id="zbsmvttkoa" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zbsmvttkoa table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ivcmpzqnzg thead, #ivcmpzqnzg tbody, #ivcmpzqnzg tfoot, #ivcmpzqnzg tr, #ivcmpzqnzg td, #ivcmpzqnzg th {
+#zbsmvttkoa thead, #zbsmvttkoa tbody, #zbsmvttkoa tfoot, #zbsmvttkoa tr, #zbsmvttkoa td, #zbsmvttkoa th {
   border-style: none;
 }
 
-#ivcmpzqnzg p {
+#zbsmvttkoa p {
   margin: 0;
   padding: 0;
 }
 
-#ivcmpzqnzg .gt_table {
+#zbsmvttkoa .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -374,12 +381,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_caption {
+#zbsmvttkoa .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ivcmpzqnzg .gt_title {
+#zbsmvttkoa .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -391,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#ivcmpzqnzg .gt_subtitle {
+#zbsmvttkoa .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -403,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#ivcmpzqnzg .gt_heading {
+#zbsmvttkoa .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -415,13 +422,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_bottom_border {
+#zbsmvttkoa .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_col_headings {
+#zbsmvttkoa .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -436,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_col_heading {
+#zbsmvttkoa .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -456,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#ivcmpzqnzg .gt_column_spanner_outer {
+#zbsmvttkoa .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -468,15 +475,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#ivcmpzqnzg .gt_column_spanner_outer:first-child {
+#zbsmvttkoa .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ivcmpzqnzg .gt_column_spanner_outer:last-child {
+#zbsmvttkoa .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ivcmpzqnzg .gt_column_spanner {
+#zbsmvttkoa .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -488,11 +495,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#ivcmpzqnzg .gt_spanner_row {
+#zbsmvttkoa .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ivcmpzqnzg .gt_group_heading {
+#zbsmvttkoa .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -518,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#ivcmpzqnzg .gt_empty_group_heading {
+#zbsmvttkoa .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -533,15 +540,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#ivcmpzqnzg .gt_from_md > :first-child {
+#zbsmvttkoa .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ivcmpzqnzg .gt_from_md > :last-child {
+#zbsmvttkoa .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ivcmpzqnzg .gt_row {
+#zbsmvttkoa .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -560,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#ivcmpzqnzg .gt_stub {
+#zbsmvttkoa .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -573,7 +580,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ivcmpzqnzg .gt_stub_row_group {
+#zbsmvttkoa .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -587,15 +594,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#ivcmpzqnzg .gt_row_group_first td {
+#zbsmvttkoa .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ivcmpzqnzg .gt_row_group_first th {
+#zbsmvttkoa .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ivcmpzqnzg .gt_summary_row {
+#zbsmvttkoa .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -605,16 +612,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ivcmpzqnzg .gt_first_summary_row {
+#zbsmvttkoa .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_first_summary_row.thick {
+#zbsmvttkoa .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ivcmpzqnzg .gt_last_summary_row {
+#zbsmvttkoa .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -624,7 +631,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_grand_summary_row {
+#zbsmvttkoa .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -634,7 +641,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ivcmpzqnzg .gt_first_grand_summary_row {
+#zbsmvttkoa .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -644,7 +651,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_last_grand_summary_row_top {
+#zbsmvttkoa .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -654,11 +661,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_striped {
+#zbsmvttkoa .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ivcmpzqnzg .gt_table_body {
+#zbsmvttkoa .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -667,7 +674,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_footnotes {
+#zbsmvttkoa .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -681,7 +688,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_footnote {
+#zbsmvttkoa .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -690,7 +697,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ivcmpzqnzg .gt_sourcenotes {
+#zbsmvttkoa .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -704,7 +711,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#ivcmpzqnzg .gt_sourcenote {
+#zbsmvttkoa .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -712,76 +719,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#ivcmpzqnzg .gt_left {
+#zbsmvttkoa .gt_left {
   text-align: left;
 }
 
-#ivcmpzqnzg .gt_center {
+#zbsmvttkoa .gt_center {
   text-align: center;
 }
 
-#ivcmpzqnzg .gt_right {
+#zbsmvttkoa .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ivcmpzqnzg .gt_font_normal {
+#zbsmvttkoa .gt_font_normal {
   font-weight: normal;
 }
 
-#ivcmpzqnzg .gt_font_bold {
+#zbsmvttkoa .gt_font_bold {
   font-weight: bold;
 }
 
-#ivcmpzqnzg .gt_font_italic {
+#zbsmvttkoa .gt_font_italic {
   font-style: italic;
 }
 
-#ivcmpzqnzg .gt_super {
+#zbsmvttkoa .gt_super {
   font-size: 65%;
 }
 
-#ivcmpzqnzg .gt_footnote_marks {
+#zbsmvttkoa .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ivcmpzqnzg .gt_asterisk {
+#zbsmvttkoa .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ivcmpzqnzg .gt_indent_1 {
+#zbsmvttkoa .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ivcmpzqnzg .gt_indent_2 {
+#zbsmvttkoa .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ivcmpzqnzg .gt_indent_3 {
+#zbsmvttkoa .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ivcmpzqnzg .gt_indent_4 {
+#zbsmvttkoa .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ivcmpzqnzg .gt_indent_5 {
+#zbsmvttkoa .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ivcmpzqnzg .katex-display {
+#zbsmvttkoa .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ivcmpzqnzg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zbsmvttkoa div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<div id="ivcmpzqnzg" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<div id="zbsmvttkoa" class="reactable html-widget" style="width:auto;height:auto;"></div>
 <div style="font-family:system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;border-top-style:solid;border-top-width:2px;border-top-color:#D3D3D3;border-bottom-style:solid;border-bottom-width:2px;border-bottom-color:#D3D3D3;padding-top:6px;padding-bottom:6px;padding-left:10px;padding-right:10px;">
 <div></div>
 <div>
@@ -790,7 +797,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<script type="application/json" data-for="ivcmpzqnzg">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"label":["race","African American","African American,Native American","African American,Pacific Islander","Asian","Asian,Pacific Islander","Asian,Pacific Islander,Other","Hispanic","Hispanic,Native American","Native American","Other","Pacific Islander","White/Caucasian","White/Caucasian,African American","White/Caucasian,African American,Hispanic,Asian,Native American,Pacific Islander,Other","White/Caucasian,Asian","White/Caucasian,Hispanic","White/Caucasian,Hispanic,Asian","White/Caucasian,Native American","White/Caucasian,Other","Unknown","edu","2-year College Degree","4-year College Degree","Doctoral Degree","High School / GED","Less than High School","Masters Degree","Professional Degree (JD, MD)","Some college","Trade school","Unknown","gender","Female","Male","Unknown","ideo","Conservative","Extremely conservative","Extremely liberal","Liberal","Moderate; middle of the road","Slightly conservative","Slightly liberal","Unknown","party","Democrat","Independent","Other Party","Republican","Unknown","dist_min"],"stat_1":[null,"7 (2.1%)","1 (0.3%)","0 (0%)","82 (25%)","1 (0.3%)","0 (0%)","18 (5.5%)","0 (0%)","0 (0%)","9 (2.8%)","2 (0.6%)","188 (58%)","2 (0.6%)","0 (0%)","1 (0.3%)","8 (2.5%)","2 (0.6%)","4 (1.2%)","1 (0.3%)","30",null,"20 (6.1%)","115 (35%)","23 (7.1%)","5 (1.5%)","4 (1.2%)","108 (33%)","20 (6.1%)","30 (9.2%)","1 (0.3%)","30",null,"116 (36%)","208 (64%)","32",null,"22 (6.8%)","2 (0.6%)","16 (4.9%)","101 (31%)","89 (27%)","29 (8.9%)","66 (20%)","31",null,"186 (57%)","83 (26%)","26 (8.0%)","30 (9.2%)","31","407 (737)"],"stat_2":[null,"3 (1.0%)","0 (0%)","1 (0.3%)","89 (29%)","0 (0%)","1 (0.3%)","10 (3.3%)","1 (0.3%)","1 (0.3%)","11 (3.6%)","0 (0%)","169 (56%)","3 (1.0%)","1 (0.3%)","4 (1.3%)","6 (2.0%)","1 (0.3%)","1 (0.3%)","0 (0%)","22",null,"15 (4.9%)","98 (32%)","35 (12%)","10 (3.3%)","0 (0%)","92 (30%)","27 (8.9%)","25 (8.2%)","2 (0.7%)","20",null,"131 (43%)","172 (57%)","21",null,"18 (5.9%)","2 (0.7%)","19 (6.3%)","105 (35%)","86 (28%)","18 (5.9%)","56 (18%)","20",null,"183 (60%)","79 (26%)","17 (5.6%)","24 (7.9%)","21","335 (759)"]},"columns":[{"id":"label","name":"<span data-qmd-base64=\"KipDb3ZhcmlhdGUqKg==\"><span class='gt_from_md'><strong>Covariate<\/strong><\/span><\/span>","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["race","    African American","    African American,Native American","    African American,Pacific Islander","    Asian","    Asian,Pacific Islander","    Asian,Pacific Islander,Other","    Hispanic","    Hispanic,Native American","    Native American","    Other","    Pacific Islander","    White/Caucasian","    White/Caucasian,African American","    White/Caucasian,African American,Hispanic,Asian,Native American,Pacific Islander,Other","    White/Caucasian,Asian","    White/Caucasian,Hispanic","    White/Caucasian,Hispanic,Asian","    White/Caucasian,Native American","    White/Caucasian,Other","    Unknown","edu","    2-year College Degree","    4-year College Degree","    Doctoral Degree","    High School / GED","    Less than High School","    Masters Degree","    Professional Degree (JD, MD)","    Some college","    Trade school","    Unknown","gender","    Female","    Male","    Unknown","ideo","    Conservative","    Extremely conservative","    Extremely liberal","    Liberal","    Moderate; middle of the road","    Slightly conservative","    Slightly liberal","    Unknown","party","    Democrat","    Independent","    Other Party","    Republican","    Unknown","dist_min"],"html":true,"align":"left"},{"id":"stat_1","name":"<span data-qmd-base64=\"KipGQUxTRSoqICAKTiA9IDM1Ng==\"><span class='gt_from_md'><strong>FALSE<\/strong><br />\nN = 356<\/span><\/span><span class=\"gt_footnote_marks\" style=\"white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;\"><sup>1<\/sup><\/span>","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["<br />","7 (2.1%)","1 (0.3%)","0 (0%)","82 (25%)","1 (0.3%)","0 (0%)","18 (5.5%)","0 (0%)","0 (0%)","9 (2.8%)","2 (0.6%)","188 (58%)","2 (0.6%)","0 (0%)","1 (0.3%)","8 (2.5%)","2 (0.6%)","4 (1.2%)","1 (0.3%)","30","<br />","20 (6.1%)","115 (35%)","23 (7.1%)","5 (1.5%)","4 (1.2%)","108 (33%)","20 (6.1%)","30 (9.2%)","1 (0.3%)","30","<br />","116 (36%)","208 (64%)","32","<br />","22 (6.8%)","2 (0.6%)","16 (4.9%)","101 (31%)","89 (27%)","29 (8.9%)","66 (20%)","31","<br />","186 (57%)","83 (26%)","26 (8.0%)","30 (9.2%)","31","407 (737)"],"html":true,"align":"center"},{"id":"stat_2","name":"<span data-qmd-base64=\"KipUUlVFKiogIApOID0gMzI0\"><span class='gt_from_md'><strong>TRUE<\/strong><br />\nN = 324<\/span><\/span><span class=\"gt_footnote_marks\" style=\"white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;\"><sup>1<\/sup><\/span>","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["<br />","3 (1.0%)","0 (0%)","1 (0.3%)","89 (29%)","0 (0%)","1 (0.3%)","10 (3.3%)","1 (0.3%)","1 (0.3%)","11 (3.6%)","0 (0%)","169 (56%)","3 (1.0%)","1 (0.3%)","4 (1.3%)","6 (2.0%)","1 (0.3%)","1 (0.3%)","0 (0%)","22","<br />","15 (4.9%)","98 (32%)","35 (12%)","10 (3.3%)","0 (0%)","92 (30%)","27 (8.9%)","25 (8.2%)","2 (0.7%)","20","<br />","131 (43%)","172 (57%)","21","<br />","18 (5.9%)","2 (0.7%)","19 (6.3%)","105 (35%)","86 (28%)","18 (5.9%)","56 (18%)","20","<br />","183 (60%)","79 (26%)","17 (5.6%)","24 (7.9%)","21","335 (759)"],"html":true,"align":"center"}],"columnGroups":[{"name":"**Map Treatment**","header":"<span data-qmd-base64=\"KipNYXAgVHJlYXRtZW50Kio=\"><span class='gt_from_md'><strong>Map Treatment<\/strong><\/span><\/span>","html":true,"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3","borderLeftStyle":"solid","borderLeftWidth":"4px","borderLeftColor":"transparent","borderRightStyle":"solid","borderRightWidth":"4px","borderRightColor":"transparent"},"columns":["stat_1","stat_2"]}],"defaultPageSize":10,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"compact":true,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"16px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"ivcmpzqnzg","dataKey":"f9353cc0df735c7d4e5a98933cc470ae"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style"],"jsHooks":[]}</script>
+<script type="application/json" data-for="zbsmvttkoa">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"label":["race","African American","African American,Native American","African American,Pacific Islander","Asian","Asian,Pacific Islander","Asian,Pacific Islander,Other","Hispanic","Hispanic,Native American","Native American","Other","Pacific Islander","White/Caucasian","White/Caucasian,African American","White/Caucasian,African American,Hispanic,Asian,Native American,Pacific Islander,Other","White/Caucasian,Asian","White/Caucasian,Hispanic","White/Caucasian,Hispanic,Asian","White/Caucasian,Native American","White/Caucasian,Other","Unknown","edu","2-year College Degree","4-year College Degree","Doctoral Degree","High School / GED","Less than High School","Masters Degree","Professional Degree (JD, MD)","Some college","Trade school","Unknown","gender","Female","Male","Unknown","ideo","Conservative","Extremely conservative","Extremely liberal","Liberal","Moderate; middle of the road","Slightly conservative","Slightly liberal","Unknown","party","Democrat","Independent","Other Party","Republican","Unknown","dist_min"],"stat_1":[null,"7 (2.1%)","1 (0.3%)","0 (0%)","82 (25%)","1 (0.3%)","0 (0%)","18 (5.5%)","0 (0%)","0 (0%)","9 (2.8%)","2 (0.6%)","188 (58%)","2 (0.6%)","0 (0%)","1 (0.3%)","8 (2.5%)","2 (0.6%)","4 (1.2%)","1 (0.3%)","30",null,"20 (6.1%)","115 (35%)","23 (7.1%)","5 (1.5%)","4 (1.2%)","108 (33%)","20 (6.1%)","30 (9.2%)","1 (0.3%)","30",null,"116 (36%)","208 (64%)","32",null,"22 (6.8%)","2 (0.6%)","16 (4.9%)","101 (31%)","89 (27%)","29 (8.9%)","66 (20%)","31",null,"186 (57%)","83 (26%)","26 (8.0%)","30 (9.2%)","31","407 (737)"],"stat_2":[null,"3 (1.0%)","0 (0%)","1 (0.3%)","89 (29%)","0 (0%)","1 (0.3%)","10 (3.3%)","1 (0.3%)","1 (0.3%)","11 (3.6%)","0 (0%)","169 (56%)","3 (1.0%)","1 (0.3%)","4 (1.3%)","6 (2.0%)","1 (0.3%)","1 (0.3%)","0 (0%)","22",null,"15 (4.9%)","98 (32%)","35 (12%)","10 (3.3%)","0 (0%)","92 (30%)","27 (8.9%)","25 (8.2%)","2 (0.7%)","20",null,"131 (43%)","172 (57%)","21",null,"18 (5.9%)","2 (0.7%)","19 (6.3%)","105 (35%)","86 (28%)","18 (5.9%)","56 (18%)","20",null,"183 (60%)","79 (26%)","17 (5.6%)","24 (7.9%)","21","335 (759)"]},"columns":[{"id":"label","name":"<span data-qmd-base64=\"KipDb3ZhcmlhdGUqKg==\"><span class='gt_from_md'><strong>Covariate<\/strong><\/span><\/span>","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["race","    African American","    African American,Native American","    African American,Pacific Islander","    Asian","    Asian,Pacific Islander","    Asian,Pacific Islander,Other","    Hispanic","    Hispanic,Native American","    Native American","    Other","    Pacific Islander","    White/Caucasian","    White/Caucasian,African American","    White/Caucasian,African American,Hispanic,Asian,Native American,Pacific Islander,Other","    White/Caucasian,Asian","    White/Caucasian,Hispanic","    White/Caucasian,Hispanic,Asian","    White/Caucasian,Native American","    White/Caucasian,Other","    Unknown","edu","    2-year College Degree","    4-year College Degree","    Doctoral Degree","    High School / GED","    Less than High School","    Masters Degree","    Professional Degree (JD, MD)","    Some college","    Trade school","    Unknown","gender","    Female","    Male","    Unknown","ideo","    Conservative","    Extremely conservative","    Extremely liberal","    Liberal","    Moderate; middle of the road","    Slightly conservative","    Slightly liberal","    Unknown","party","    Democrat","    Independent","    Other Party","    Republican","    Unknown","dist_min"],"html":true,"align":"left"},{"id":"stat_1","name":"<span data-qmd-base64=\"KipGQUxTRSoqICAKTiA9IDM1Ng==\"><span class='gt_from_md'><strong>FALSE<\/strong><br />\nN = 356<\/span><\/span><span class=\"gt_footnote_marks\" style=\"white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;\"><sup>1<\/sup><\/span>","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["<br />","7 (2.1%)","1 (0.3%)","0 (0%)","82 (25%)","1 (0.3%)","0 (0%)","18 (5.5%)","0 (0%)","0 (0%)","9 (2.8%)","2 (0.6%)","188 (58%)","2 (0.6%)","0 (0%)","1 (0.3%)","8 (2.5%)","2 (0.6%)","4 (1.2%)","1 (0.3%)","30","<br />","20 (6.1%)","115 (35%)","23 (7.1%)","5 (1.5%)","4 (1.2%)","108 (33%)","20 (6.1%)","30 (9.2%)","1 (0.3%)","30","<br />","116 (36%)","208 (64%)","32","<br />","22 (6.8%)","2 (0.6%)","16 (4.9%)","101 (31%)","89 (27%)","29 (8.9%)","66 (20%)","31","<br />","186 (57%)","83 (26%)","26 (8.0%)","30 (9.2%)","31","407 (737)"],"html":true,"align":"center"},{"id":"stat_2","name":"<span data-qmd-base64=\"KipUUlVFKiogIApOID0gMzI0\"><span class='gt_from_md'><strong>TRUE<\/strong><br />\nN = 324<\/span><\/span><span class=\"gt_footnote_marks\" style=\"white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;\"><sup>1<\/sup><\/span>","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","cell":["<br />","3 (1.0%)","0 (0%)","1 (0.3%)","89 (29%)","0 (0%)","1 (0.3%)","10 (3.3%)","1 (0.3%)","1 (0.3%)","11 (3.6%)","0 (0%)","169 (56%)","3 (1.0%)","1 (0.3%)","4 (1.3%)","6 (2.0%)","1 (0.3%)","1 (0.3%)","0 (0%)","22","<br />","15 (4.9%)","98 (32%)","35 (12%)","10 (3.3%)","0 (0%)","92 (30%)","27 (8.9%)","25 (8.2%)","2 (0.7%)","20","<br />","131 (43%)","172 (57%)","21","<br />","18 (5.9%)","2 (0.7%)","19 (6.3%)","105 (35%)","86 (28%)","18 (5.9%)","56 (18%)","20","<br />","183 (60%)","79 (26%)","17 (5.6%)","24 (7.9%)","21","335 (759)"],"html":true,"align":"center"}],"columnGroups":[{"name":"**Map Treatment**","header":"<span data-qmd-base64=\"KipNYXAgVHJlYXRtZW50Kio=\"><span class='gt_from_md'><strong>Map Treatment<\/strong><\/span><\/span>","html":true,"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3","borderLeftStyle":"solid","borderLeftWidth":"4px","borderLeftColor":"transparent","borderRightStyle":"solid","borderRightWidth":"4px","borderRightColor":"transparent"},"columns":["stat_1","stat_2"]}],"defaultPageSize":10,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"compact":true,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"16px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"zbsmvttkoa","dataKey":"f9353cc0df735c7d4e5a98933cc470ae"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -802,6 +809,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>dist_min</code>: Minimum distance (in meters) to SLR boundary. This is the <strong>running variable</strong> for our spatial heterogeneity test.</li>
 </ul>
 <p>This data contains 680 observations from California residents. The entire dataset (not used here) containing data from all four states has a sample size of 1,243</p>
+<p>In the following steps, we replicate two components of the study:</p>
+<ol type="1">
+<li>The <strong>Average Treatment Effect (ATE)</strong> of map exposure on perceived personal harm, and</li>
+<li>The <strong>spatial heterogeneity analysis</strong> used to construct Figure 4.</li>
+</ol>
 </section>
 <section id="step-1---estimate-the-ate-of-california" class="level2">
 <h2 class="anchored" data-anchor-id="step-1---estimate-the-ate-of-california">Step 1 - Estimate the ATE of California</h2>
@@ -912,8 +924,28 @@ F-statistic: 11.51 on 1 and 678 DF,  p-value: 0.0007332</code></pre>
 <ol type="1">
 <li><p><strong>Maps reduce perceived personal harm across almost all distances.</strong> Even respondents whose homes are projected to flood show lower concern after seeing the map.</p></li>
 <li><p><strong>There is no sharp change at the SLR boundary.</strong> If maps increased personal relevance, we would expect a spike near 0 meters. Instead, the curve is flat and negative.</p></li>
-<li><p><strong>California behaves like the national sample.</strong> Despite higher climate awareness, the backfire effect persists. This insight is based on evidence from the original study, as well.</p></li>
+<li><p><strong>California behaves like the national sample.</strong> Despite higher climate awareness, the backfire effect persists. This insight is based on evidence from the original study, as well. The national sample is in reference to the first experiment that consisted of a sample of four coastal regions in the states of California, Florida, New Jersey and Virginia.</p></li>
 </ol>
+<div id="fig-compare" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/figure4.png" class="img-fluid figure-img" width="463"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="images/figure4_ca.png" class="img-fluid figure-img" width="1094"></p>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-compare-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Comparing Mildenberger et al.&nbsp;(2024)‘s results (left) to ours (right) reveals that inside the flood zone (negative distances), California’s treatment effect paralleled that of the entire study sample. We can also see that outside of the flood zone (positive distances), Californians’ sense of personal harm either didn’t change or increased, whereas the backfire effect was stronger in the four-state sample.
+</figcaption>
+</figure>
+</div>
+<p><strong>Backfire Effect</strong>: The negative treatment effect across most of the distances that indicates that maps may unintentionally make respondents less concerned about sea-level rise. Even respondents with homes projected to flood showed reduced perceived harm after viewing the map.</p>
 </section>
 <section id="conclusion-and-summary" class="level1">
 <h1>Conclusion and Summary</h1>
@@ -925,12 +957,13 @@ F-statistic: 11.51 on 1 and 678 DF,  p-value: 0.0007332</code></pre>
 <li><p>In the California sample, the treatment assignment (treat_map) is independent of respondent characteristics because the map is randomly shown after the individuals enter the survey.</p></li>
 <li><p>For ATE and bin-level estimates in Figure 4, the causal effect can be identified if: Randomization was implemented correctly If one respondent’s treatment does not affect anther’s outcome (SUTVA) This leads to the belief that internal validity is strong and that the randomized design credibly identifies the short-run causal effect of seeing the map on the survey outcome.</p></li>
 </ul>
+<p><strong>Spatial Analysis Assumptions</strong>: The spatial heterogeneity analysis assumes the following: - Randomization holds within each distance. - Treatment effects are comparable across bins. - Distance to the SLR boundary is measured without error. - No sorting or manipulation around the boundary due to randomization of treatment.</p>
 <p><strong>Statistical Assumptions:</strong></p>
 <p>Because this is a randomized experiment, the assumptions are:</p>
 <p><em>Randomized validity</em></p>
-<p>The author reports no evidence of imbalance across the treatment and control groups Our California-only replication relies on the same randomization</p>
+<p>The author reports no evidence of imbalance across the treatment and control groups Our California-only replication relies on the same randomization. Randomization was implemented through the Qualtrics platform, ensuring that map exposure was independent of respondent characteristics.</p>
 <p><em>SUTVA</em></p>
-<p>Respondents complete surveys individually and therefore cannot see each others maps Spillovers are unlikely due to the online setting Due to this, we believe that statistical assumptions are reasonable.</p>
+<p>Respondents complete surveys individually and therefore cannot see each others maps Spillovers are unlikely due to the online setting Due to this, we believe that statistical assumptions are reasonable. Although all treated individuals received a map, the variation in treatment was their homes location relative to the flood zone.</p>
 <p><strong>Sampling and External Validity:</strong></p>
 <ul>
 <li><p>The sample are the California respondents that were recruited via “address-matched mail-to-web sampling”</p></li>
